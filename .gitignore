@@ -1,0 +1,4 @@
+.directory
+*.bak
+*-bak
+fp-info-cache
