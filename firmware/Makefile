@@ -1,6 +1,6 @@
 # Hey Emacs, this is a -*- makefile -*-
 #
-# WinAVR makefile written by Eric B. Weddington, Jörg Wunsch, et al.
+# WinAVR makefile written by Eric B. Weddington, JÃ¶rg Wunsch, et al.
 # Released to the Public Domain
 # Please read the make user manual!
 #
@@ -38,12 +38,12 @@
 
 
 # MCU name
-#MCU = atmega644p
-MCU = atmega8
+
+MCU = attiny24
 
 # Main Oscillator Frequency
 # This is only used to define F_OSC in all assembler and c-sources.
-F_CPU = 12000000UL
+F_CPU = 8000000UL
 
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
@@ -54,22 +54,23 @@ TARGET = cpu_luefter_ansteuerung
 # FUSE CALULATOR -- http://www.engbedded.com/fusecalc/ --
 # Low Fuse Bits
 
-# Externer Quarz (12MHz)
-LFUSE = 0xFF
+# Interner Quarz 8MHz
+# Divide clock by 8 = disable
+LFUSE = 0xE2
 
 # Externer Quarz
 #LFUSE = 0xFF
 
 # High Fuse Bits
-HFUSE = 0xC9
+HFUSE = 0xDF
 
 AVRDUDE_PROGRAMMER = avrispmkII
 
 # com1 = serial port. Use lpt1 to connect to parallel port.
 AVRDUDE_PORT = usb    # programmer connected to serial device
 
-# ISP Speed in µs (1/4 vom CPU Takt)
-AVRDUDE_ISP_SPEED = 4  # (1/1000000Hz)*4
+# ISP Speed in Âµs (1/4 vom CPU Takt)
+AVRDUDE_ISP_SPEED = 8  # (1/1000000Hz)*4
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = main.c

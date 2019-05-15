@@ -1,28 +1,66 @@
 /* Name: main.c
  * Projekt: cpu_lueftersteuerung
  * Author: Thorsten Kattanek
- * Erstellt am: 09.06.2016
+ * Geändert am: 09.05.2019
  * Copyright: Thorsten Kattanek
  * License: GNU GPL v2 (see License.txt), GNU GPL v3 or proprietary (CommercialLicense.txt)
  *
  */
 
-#define F_CPU   12000000UL
-
+#define F_CPU   8000000UL
+    
 #include <avr/io.h>
 #include <avr/wdt.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <avr/pgmspace.h>   /* benötigt von usbdrv.h */
 
-void InitPWMChannels();
+// PinOut
+// PB1 - FAN_POWER
+// PB2 - FAN_PWM
+
+// PA0 - 7_SEG_SER
+// PA1 - 7_SEG_SRCK
+// PA2 - 7_SEG_RCLCK
+
+void InitMotor(void);
+void InitPWMChannel(void);
+void Init7Segment(void);
 void MotorOn(void);
 void MotorOff(void);
-void SetMotorSpeed(unsigned char value);
+void SetMotorSpeed(unsigned char speed);
 void Set7Segment(char value);
 
 int main(void)
 {
+    InitMotor();
+    InitPWMChannel();
+    Init7Segment();
+
+    MotorOn();
+
+    uint8_t speed = 0;
+    uint8_t direction = 0;
+
+    while(1)
+    {
+        SetMotorSpeed(speed);
+        _delay_ms(40);
+
+        if(direction == 0)
+        {
+            speed++;
+            if(speed == 255)
+                direction = 1;
+        }
+        else {
+            speed--;
+            if(speed == 0)
+                direction = 0;
+        }
+    }
+    
+    /*
     unsigned char speed_tbl[6] = {0,50,100,150,200,255};
     unsigned char current_speed = 0; 	// 0 = Ausgang
     unsigned char key, old_key = 0;
@@ -61,42 +99,80 @@ int main(void)
 	
 	old_key = key;
     }  
+    */
 }
 
 /* ------------------------------------------------------------------------- */
-void InitPWMChannels()
+
+void InitMotor(void)
 {
-    DDRB |= (1 << PB1 );
-    // COM1A1 -> Compare Output Mode Channel A
-    // COM1A0 -> Clear OC1A on Compare Match
-    // PWM, Phase Correct 8-bit
-    TCCR1A = (1<<COM1A1) | (1<<WGM10);
-    // Kein Prescaling
-    TCCR1B = (1 << CS10);
-    OCR1A = 0;
+    // Motor On/Off Signal muss definiert 5V oder GND haben.
+    DDRB |= 1 << PB1;
+    PORTB &= ~(1 << PB1);
+}
+
+void InitPWMChannel(void)
+{
+    DDRB |= 1 << PB2;                                   // OC0A auf Ausgang setzen
+    TCCR0A |= 1 << COM0A1 | 1 << WGM00 | 1 << WGM01;     // OC0A non-invertmode - FAST PWM Mode
+    TCCR0B |= 1 << CS01;                                 // Prescaler auf 8 --> 8MHz / 8 / 256 = 3,9 KHz
+    OCR0A = 0;
+}
+
+void Init7Segment(void)
+{
+    DDRA |= 1 << PA0 | 1 << PA1 | 1 << PA2;
+
+    PORTA |= 1 << PA0;       // SER auf LO -> LED AN
+
+    for(int i=0; i<8; i++)      // CLK 8x
+    {
+        PORTA &= ~(1 << PA2);
+        _delay_us(10);
+        PORTA |= 1 << PA2;
+        _delay_us(10);
+    }
+
+    PORTA &= ~(1 << PA1);   // RCK 1x
+    _delay_us(10);
+    PORTA |= 1 << PA1;
+    _delay_us(10);
+
 }
 
 void Set7Segment(char value)
 {
+    /*
     if(value >9 || value < 0)
     {
 	PORTC = 0x0f;
 	return;
     }
     PORTC = value;
+    */
 }
 
+///
+/// \brief MotorOn
+///
 void MotorOn(void)
 {
-    PORTB |= 1 << PB0;
+    PORTB |= 1 << PB1;
 }
 
+///
+/// \brief MotorOff
+///
 void MotorOff(void)
 {
-    PORTB &= ~(1 << PB0);
+    PORTB &= ~(1 << PB1);
 }
 
-void SetMotorSpeed(unsigned char value)
+///
+/// \brief SetMotorSpeed
+/// \param speed = 0-255 (0=slow 255=fast)
+///
+void SetMotorSpeed(unsigned char speed)
 {
-    OCR1A = value;
+    OCR0A = speed;
 }
