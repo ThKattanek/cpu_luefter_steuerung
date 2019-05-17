@@ -6,8 +6,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Lüftersteuerung"
-Date "2019-05-15"
-Rev "2.2"
+Date "2019-05-17"
+Rev "2.3"
 Comp "Thorsten Kattanek"
 Comment1 ""
 Comment2 ""
@@ -576,7 +576,7 @@ L cpu_luefter_ansteuerung-rescue:R R11
 U 1 1 5CE1873B
 P 8750 2700
 F 0 "R11" V 8700 2550 50  0000 C CNN
-F 1 "150" V 8750 2700 50  0000 C CNN
+F 1 "560" V 8750 2700 50  0000 C CNN
 F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 8680 2700 50  0001 C CNN
 F 3 "" H 8750 2700 50  0000 C CNN
 	1    8750 2700
@@ -587,7 +587,7 @@ L cpu_luefter_ansteuerung-rescue:R R10
 U 1 1 5CE18461
 P 8750 2600
 F 0 "R10" V 8700 2450 50  0000 C CNN
-F 1 "150" V 8750 2600 50  0000 C CNN
+F 1 "560" V 8750 2600 50  0000 C CNN
 F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 8680 2600 50  0001 C CNN
 F 3 "" H 8750 2600 50  0000 C CNN
 	1    8750 2600
@@ -598,7 +598,7 @@ L cpu_luefter_ansteuerung-rescue:R R9
 U 1 1 5CE18115
 P 8750 2500
 F 0 "R9" V 8700 2350 50  0000 C CNN
-F 1 "150" V 8750 2500 50  0000 C CNN
+F 1 "560" V 8750 2500 50  0000 C CNN
 F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 8680 2500 50  0001 C CNN
 F 3 "" H 8750 2500 50  0000 C CNN
 	1    8750 2500
@@ -609,7 +609,7 @@ L cpu_luefter_ansteuerung-rescue:R R8
 U 1 1 5CE17EB1
 P 8750 2400
 F 0 "R8" V 8700 2250 50  0000 C CNN
-F 1 "150" V 8750 2400 50  0000 C CNN
+F 1 "560" V 8750 2400 50  0000 C CNN
 F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 8680 2400 50  0001 C CNN
 F 3 "" H 8750 2400 50  0000 C CNN
 	1    8750 2400
@@ -620,7 +620,7 @@ L cpu_luefter_ansteuerung-rescue:R R7
 U 1 1 5CE17B9D
 P 8750 2300
 F 0 "R7" V 8700 2150 50  0000 C CNN
-F 1 "150" V 8750 2300 50  0000 C CNN
+F 1 "560" V 8750 2300 50  0000 C CNN
 F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 8680 2300 50  0001 C CNN
 F 3 "" H 8750 2300 50  0000 C CNN
 	1    8750 2300
@@ -631,7 +631,7 @@ L cpu_luefter_ansteuerung-rescue:R R6
 U 1 1 5CE17947
 P 8750 2200
 F 0 "R6" V 8700 2050 50  0000 C CNN
-F 1 "150" V 8750 2200 50  0000 C CNN
+F 1 "560" V 8750 2200 50  0000 C CNN
 F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 8680 2200 50  0001 C CNN
 F 3 "" H 8750 2200 50  0000 C CNN
 	1    8750 2200
@@ -642,7 +642,7 @@ L cpu_luefter_ansteuerung-rescue:R R5
 U 1 1 5CE1771C
 P 8750 2100
 F 0 "R5" V 8700 1950 50  0000 C CNN
-F 1 "150" V 8750 2100 50  0000 C CNN
+F 1 "560" V 8750 2100 50  0000 C CNN
 F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 8680 2100 50  0001 C CNN
 F 3 "" H 8750 2100 50  0000 C CNN
 	1    8750 2100
@@ -653,7 +653,7 @@ L cpu_luefter_ansteuerung-rescue:R R4
 U 1 1 5CE13939
 P 8750 2000
 F 0 "R4" V 8700 1850 50  0000 C CNN
-F 1 "150" V 8750 2000 50  0000 C CNN
+F 1 "560" V 8750 2000 50  0000 C CNN
 F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 8680 2000 50  0001 C CNN
 F 3 "" H 8750 2000 50  0000 C CNN
 	1    8750 2000
