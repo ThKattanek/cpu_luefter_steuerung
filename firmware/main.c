@@ -20,16 +20,21 @@
 // PB2 - FAN_PWM
 
 // PA0 - 7_SEG_SER
-// PA1 - 7_SEG_SRCK
-// PA2 - 7_SEG_RCLCK
+// PA1 - 7_SEG_SRCLK
+// PA2 - 7_SEG_RCLK
 
 void InitMotor(void);
 void InitPWMChannel(void);
 void Init7Segment(void);
+
 void MotorOn(void);
 void MotorOff(void);
 void SetMotorSpeed(unsigned char speed);
-void Set7Segment(char value);
+
+void Set7Segment(uint8_t value);
+void Set7SegmentNumber(uint8_t num);
+
+
 
 int main(void)
 {
@@ -39,25 +44,15 @@ int main(void)
 
     MotorOn();
 
-    uint8_t speed = 0;
-    uint8_t direction = 0;
+    uint8_t number = 0;
 
     while(1)
     {
-        SetMotorSpeed(speed);
-        _delay_ms(40);
-
-        if(direction == 0)
-        {
-            speed++;
-            if(speed == 255)
-                direction = 1;
-        }
-        else {
-            speed--;
-            if(speed == 0)
-                direction = 0;
-        }
+        Set7SegmentNumber(number);
+        number++;
+        if(number == 10)
+            number = 0;
+        _delay_ms(200);
     }
     
     /*
@@ -123,33 +118,42 @@ void Init7Segment(void)
 {
     DDRA |= 1 << PA0 | 1 << PA1 | 1 << PA2;
 
-    PORTA |= 1 << PA0;       // SER auf LO -> LED AN
+    PORTA |= 1 << PA0;       // SER auf HI -> LED AUS
 
-    for(int i=0; i<8; i++)      // CLK 8x
+    PORTA &= ~(1 << PA1 | 1 << PA2);    // SRCLK & RCLK auf Low setzen
+
+    for(int i=0; i<8; i++)      // SRCLK 8x
     {
-        PORTA &= ~(1 << PA2);
-        _delay_us(10);
-        PORTA |= 1 << PA2;
-        _delay_us(10);
+        PORTA |= 1 << PA1;
+        PORTA &= ~(1 << PA1);
     }
 
-    PORTA &= ~(1 << PA1);   // RCK 1x
-    _delay_us(10);
-    PORTA |= 1 << PA1;
-    _delay_us(10);
-
+    PORTA |= 1 << PA2;      // RCLK 1x
+    PORTA &= ~(1 << PA2);
 }
 
-void Set7Segment(char value)
+void Set7Segment(uint8_t value)
 {
-    /*
-    if(value >9 || value < 0)
+    for(int i=0; i<8; i++)
     {
-	PORTC = 0x0f;
-	return;
+        PORTA &= 0xfe;                      // SER loeschen
+        PORTA |= (value >> (7-i)) & 0x01;   // SER mit Bit füllen
+        PORTA ^= 0x01;                      // SER invertieren
+
+        PORTA |= 1 << PA1;                  // SRCLK
+        PORTA &= ~(1 << PA1);
     }
-    PORTC = value;
-    */
+
+    PORTA |= 1 << PA2;                      // RCLK 1x
+    PORTA &= ~(1 << PA2);
+}
+
+void Set7SegmentNumber(uint8_t num)
+{
+    const uint8_t num_conv_tbl[10] = {0xed, 0x21, 0xf4, 0xf1, 0x39, 0xd9, 0xdd, 0x61, 0xfd, 0xf9};
+
+    if(num < 10)
+    Set7Segment(num_conv_tbl[num]);
 }
 
 ///
