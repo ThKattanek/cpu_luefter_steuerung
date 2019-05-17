@@ -718,9 +718,9 @@ Text GLabel 4650 1750 2    60   Input ~ 0
 Text GLabel 7300 2000 0    60   Input ~ 0
 7_SEG_SER
 Text GLabel 4650 1850 2    60   Input ~ 0
-7_SEG_SRCK
+7_SEG_SRCLK
 Text GLabel 7300 2200 0    60   Input ~ 0
-7_SEG_SRCK
+7_SEG_SRCLK
 Text GLabel 4650 1950 2    60   Input ~ 0
 7_SEG_RCLK
 Text GLabel 7300 2500 0    60   Input ~ 0
