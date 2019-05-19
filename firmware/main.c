@@ -1,7 +1,7 @@
 /* Name: main.c
  * Projekt: cpu_lueftersteuerung
  * Author: Thorsten Kattanek
- * Geändert am: 09.05.2019
+ * Geändert am: 19.05.2019
  * Copyright: Thorsten Kattanek
  * License: GNU GPL v2 (see License.txt), GNU GPL v3 or proprietary (CommercialLicense.txt)
  *
@@ -23,9 +23,12 @@
 // PA1 - 7_SEG_SRCLK
 // PA2 - 7_SEG_RCLK
 
+// PB0 - PUSH_BUTTON1
+
 void InitMotor(void);
 void InitPWMChannel(void);
 void Init7Segment(void);
+void InitInputs(void);
 
 void MotorOn(void);
 void MotorOff(void);
@@ -34,67 +37,50 @@ void SetMotorSpeed(unsigned char speed);
 void Set7Segment(uint8_t value);
 void Set7SegmentNumber(uint8_t num);
 
-
-
 int main(void)
 {
     InitMotor();
     InitPWMChannel();
     Init7Segment();
+    InitInputs();
 
-    MotorOn();
+    Set7SegmentNumber(0);
 
     uint8_t number = 0;
 
+    const uint8_t speed_tbl[6] = {0,50,100,150,200,255};
+    uint8_t current_speed = 0; 	// 0 = Aus
+    uint8_t key, old_key = 0;
+    uint8_t key_wait1 = 0;
+
     while(1)
     {
-        Set7SegmentNumber(number);
-        number++;
-        if(number == 10)
-            number = 0;
-        _delay_ms(200);
-    }
-    
-    /*
-    unsigned char speed_tbl[6] = {0,50,100,150,200,255};
-    unsigned char current_speed = 0; 	// 0 = Ausgang
-    unsigned char key, old_key = 0;
-    
-    DDRB = (1 << PB0 );	// PIN0 von PB auf Ausgang schalten
-    
-    DDRC = 0x0f;	// PINC0-3 Steuerung Anzeige
-    PINC = 0;		// Keine internen Pullups setzen
+        key = (PINB >> PB0) & 1;
 
-    InitPWMChannels();
-    MotorOff();
-    SetMotorSpeed(0);
-    Set7Segment(0);
-    
-    while( 1 )
-    {
-	key = (PINC >> 4) & 1;
-	
-	if(key != old_key)
-	{
-	    if(!key)
-	    {
-		current_speed++;
-		if(current_speed == 6)
-		    current_speed = 0;
-		Set7Segment(current_speed);
-		
-		if(current_speed == 0)
-		    MotorOff();
-		else
-		    MotorOn();
-		
-		SetMotorSpeed(speed_tbl[current_speed]);
-	    }
-	}
-	
-	old_key = key;
-    }  
-    */
+        if(key != old_key && key_wait1 == 0)
+        {
+            if(!key)
+            {
+                current_speed++;
+                if(current_speed == 6)
+                    current_speed = 0;
+                Set7SegmentNumber(current_speed);
+
+                if(current_speed == 0)
+                    MotorOff();
+                else
+                    MotorOn();
+
+                SetMotorSpeed(speed_tbl[current_speed]);
+            }
+            key_wait1 = 0xff;
+        }
+        else if(key_wait1 > 0) {
+            key_wait1--;
+        }
+
+        old_key = key;
+    }
 }
 
 /* ------------------------------------------------------------------------- */
@@ -130,6 +116,12 @@ void Init7Segment(void)
 
     PORTA |= 1 << PA2;      // RCLK 1x
     PORTA &= ~(1 << PA2);
+}
+
+void InitInputs(void)
+{
+    DDRB &= ~(1 << PB0);
+    PINB |= 1 << PB0;      // Set intern pullups
 }
 
 void Set7Segment(uint8_t value)
