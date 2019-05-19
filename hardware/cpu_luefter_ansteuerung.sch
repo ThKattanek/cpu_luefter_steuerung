@@ -6,8 +6,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Lüftersteuerung"
-Date "2019-05-17"
-Rev "2.3"
+Date "2019-05-19"
+Rev "2.4"
 Comp "Thorsten Kattanek"
 Comment1 ""
 Comment2 ""
@@ -130,24 +130,6 @@ Wire Wire Line
 Wire Wire Line
 	8500 5000 8500 5050
 NoConn ~ 9700 5000
-Wire Wire Line
-	3650 5300 4050 5300
-$Comp
-L power:+5V #PWR011
-U 1 1 575F8DD8
-P 4050 5800
-F 0 "#PWR011" H 4050 5650 50  0001 C CNN
-F 1 "+5V" H 4068 5974 50  0000 C CNN
-F 2 "" H 4050 5800 50  0000 C CNN
-F 3 "" H 4050 5800 50  0000 C CNN
-	1    4050 5800
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	4050 5150 4050 5300
-Wire Wire Line
-	4050 5700 4050 5800
-Connection ~ 4050 5300
 $Comp
 L power:GND #PWR013
 U 1 1 575F900F
@@ -161,20 +143,7 @@ F 3 "" H 5050 5300 50  0000 C CNN
 $EndComp
 Wire Wire Line
 	4850 5300 5050 5300
-$Comp
-L power:GND #PWR010
-U 1 1 575F940E
-P 4050 4750
-F 0 "#PWR010" H 4050 4500 50  0001 C CNN
-F 1 "GND" H 4058 4576 50  0000 C CNN
-F 2 "" H 4050 4750 50  0000 C CNN
-F 3 "" H 4050 4750 50  0000 C CNN
-	1    4050 4750
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	4050 4750 4050 4850
-Text Notes 3100 4450 0    60   ~ 0
+Text Notes 3150 4750 0    60   ~ 0
 Taster zum umschalten der Geschwindigkeit\n0 - AUS\n1 - 5 Stufen
 $Comp
 L power:+5V #PWR014
@@ -254,10 +223,6 @@ Wire Wire Line
 Wire Wire Line
 	8800 5050 9050 5050
 Wire Wire Line
-	4050 5300 4450 5300
-Wire Wire Line
-	4050 5300 4050 5400
-Wire Wire Line
 	3950 3250 3950 3450
 $Comp
 L power:GND #PWR09
@@ -304,17 +269,6 @@ F 2 "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" H 2788 7000 50  0001 C CNN
 F 3 "~" H 2750 7150 50  0001 C CNN
 	1    2750 7150
 	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP C5
-U 1 1 5CE4D188
-P 4050 5000
-F 0 "C5" H 3932 4954 50  0000 R CNN
-F 1 "1u" H 3932 5045 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D10.0mm_P2.50mm_P5.00mm" H 4088 4850 50  0001 C CNN
-F 3 "~" H 4050 5000 50  0001 C CNN
-	1    4050 5000
-	-1   0    0    1   
 $EndComp
 $Comp
 L Diode:1N4001 D1
@@ -385,17 +339,6 @@ F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 8130 5350
 F 3 "~" H 8200 5350 50  0001 C CNN
 	1    8200 5350
 	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R1
-U 1 1 5D0A41DB
-P 4050 5550
-F 0 "R1" V 4150 5450 50  0000 C CNN
-F 1 "10k" V 4150 5650 50  0000 C CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 3980 5550 50  0001 C CNN
-F 3 "~" H 4050 5550 50  0001 C CNN
-	1    4050 5550
-	1    0    0    -1  
 $EndComp
 $Comp
 L Switch:SW_Push SW1
@@ -804,4 +747,6 @@ F 3 "http://www.ti.com/lit/ds/symlink/sn74hc595.pdf" H 7850 2400 50  0001 C CNN
 	1    7850 2400
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	3650 5300 4450 5300
 $EndSCHEMATC
