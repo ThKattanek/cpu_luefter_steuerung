@@ -6,8 +6,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Lüftersteuerung"
-Date "2019-05-19"
-Rev "2.4"
+Date "2019-06-20"
+Rev "2.5"
 Comp "Thorsten Kattanek"
 Comment1 ""
 Comment2 ""
@@ -90,8 +90,6 @@ Wire Wire Line
 	8350 5350 8500 5350
 Wire Wire Line
 	2500 6900 2750 6900
-Wire Wire Line
-	2200 7200 2200 7350
 Wire Wire Line
 	2750 7350 2750 7300
 Connection ~ 2200 7350
@@ -192,17 +190,6 @@ F 2 "" H 3250 6900 50  0000 C CNN
 F 3 "" H 3250 6900 50  0000 C CNN
 	1    3250 6900
 	0    1    1    0   
-$EndComp
-$Comp
-L Regulator_Linear:L78L05_TO92 U1
-U 1 1 5761B641
-P 2200 6900
-F 0 "U1" H 2200 7215 50  0000 C CNN
-F 1 "7805" H 2200 7124 50  0000 C CNN
-F 2 "Package_TO_SOT_THT:TO-220-3_Horizontal_TabDown" H 2200 6900 50  0001 C CNN
-F 3 "" H 2200 6900 50  0000 C CNN
-	1    2200 6900
-	1    0    0    -1  
 $EndComp
 Text Notes 10100 4800 0    60   ~ 0
 1 GND\n2 12V\n4 PWM
@@ -749,4 +736,17 @@ F 3 "http://www.ti.com/lit/ds/symlink/sn74hc595.pdf" H 7850 2400 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3650 5300 4450 5300
+$Comp
+L Regulator_Linear:L7805 U1
+U 1 1 5D0DDDB7
+P 2200 6900
+F 0 "U1" H 2200 7142 50  0000 C CNN
+F 1 "L7805" H 2200 7051 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Horizontal_TabDown" H 2225 6750 50  0001 L CIN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/41/4f/b3/b0/12/d4/47/88/CD00000444.pdf/files/CD00000444.pdf/jcr:content/translations/en.CD00000444.pdf" H 2200 6850 50  0001 C CNN
+	1    2200 6900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2200 7200 2200 7350
 $EndSCHEMATC
