@@ -6,8 +6,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Lüftersteuerung"
-Date "2019-06-20"
-Rev "2.5"
+Date "2019-07-24"
+Rev "2.6"
 Comp "Thorsten Kattanek"
 Comment1 ""
 Comment2 ""
