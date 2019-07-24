@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cpu_luefter_ansteuerung-cache
-EELAYER 29 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -289,7 +289,7 @@ U 1 1 5D089BED
 P 9900 4900
 F 0 "J3" H 9980 4892 50  0000 L CNN
 F 1 "CPU Lüfter" H 9980 4801 50  0000 L CNN
-F 2 "Connector_PinHeader_1.27mm:PinHeader_1x04_P1.27mm_Vertical" H 9900 4900 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" H 9900 4900 50  0001 C CNN
 F 3 "~" H 9900 4900 50  0001 C CNN
 	1    9900 4900
 	1    0    0    -1  
